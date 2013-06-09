@@ -183,7 +183,13 @@ final public class AndrolibResources {
 			StreamResult result = new StreamResult(new File(filePath));
 			transformer.transform(source, result);
 
-        } catch (SAXException | ParserConfigurationException | IOException | TransformerException ex) {
+        } catch (SAXException ex) {
+            throw new AndrolibException(ex);
+        } catch (ParserConfigurationException ex) {
+            throw new AndrolibException(ex);
+        } catch (IOException ex) {
+            throw new AndrolibException(ex);
+        } catch (TransformerException ex) {
             throw new AndrolibException(ex);
         }
     }
@@ -225,7 +231,13 @@ final public class AndrolibResources {
 				StreamResult result = new StreamResult(new File(filePath));
 				transformer.transform(source, result);
 
-            } catch (SAXException | ParserConfigurationException | IOException | TransformerException ex) {
+            } catch (SAXException ex) {
+                throw new AndrolibException(ex);
+            } catch (ParserConfigurationException ex) {
+                throw new AndrolibException(ex);
+            } catch (IOException ex) {
+                throw new AndrolibException(ex);
+            } catch (TransformerException ex) {
                 throw new AndrolibException(ex);
             }
         }
@@ -265,7 +277,13 @@ final public class AndrolibResources {
                 StreamResult result = new StreamResult(new File(filePath));
                 transformer.transform(source, result);
 
-            } catch (SAXException | ParserConfigurationException | IOException | TransformerException ex) {
+            } catch (SAXException ex) {
+                throw new AndrolibException(ex);
+            } catch (ParserConfigurationException ex) {
+                throw new AndrolibException(ex);
+            } catch (IOException ex) {
+                throw new AndrolibException(ex);
+            } catch (TransformerException ex) {
                 throw new AndrolibException(ex);
             }
         }

@@ -125,7 +125,7 @@ public class TypeName {
 	}
 
     public static TypeName fromPath(Path path) {
-        List<String> parts = new ArrayList<>(path.getNameCount());
+        List<String> parts = new ArrayList<String>(path.getNameCount());
         for (Path p : path) {
             parts.add(p.toString());
         }
@@ -199,13 +199,13 @@ public class TypeName {
 				throw new AndrolibException("Invalid internal name: "
 						+ origInternal);
 			}
-            return new Duo<>(fromNameParts(Arrays.asList(internal.substring(1, pos).split("/")), array), length + pos);
+            return new Duo<TypeName, Integer>(fromNameParts(Arrays.asList(internal.substring(1, pos).split("/")), array), length + pos);
 		default:
 			throw new AndrolibException("Invalid internal name: "
 					+ origInternal);
 		}
 
-		return new Duo<>(new TypeName(null, type, null, array), length);
+		return new Duo<TypeName, Integer>(new TypeName(null, type, null, array), length);
 	}
 
 	private Boolean mIsFileOwner;

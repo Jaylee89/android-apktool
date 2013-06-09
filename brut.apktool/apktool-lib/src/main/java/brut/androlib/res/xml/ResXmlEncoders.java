@@ -172,8 +172,8 @@ public final class ResXmlEncoders {
 		int pos;
 		int pos2 = 0;
 		int length = str.length();
-		List<Integer> nonPositional = new ArrayList<>();
-		List<Integer> positional = new ArrayList<>();
+		List<Integer> nonPositional = new ArrayList<Integer>();
+		List<Integer> positional = new ArrayList<Integer>();
 		while ((pos = str.indexOf('%', pos2)) != -1) {
             pos2 = pos + 1;
 			if (pos2 == length) {
@@ -198,7 +198,7 @@ public final class ResXmlEncoders {
 			}
 		}
 
-		return new Duo<>(nonPositional, positional);
+		return new Duo<List<Integer>, List<Integer>>(nonPositional, positional);
 	}
 
 	private static boolean isPrintableChar(char c) {

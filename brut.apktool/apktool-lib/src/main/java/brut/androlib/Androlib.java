@@ -287,7 +287,11 @@ public class Androlib {
 
         // we must go after the Apk is built, and copy the files in via Zip
         // this is because Aapt won't add files it doesn't know (ex unknown files)
-        buildUnknownFiles(appDir,outFile,meta);
+        try {
+            buildUnknownFiles(appDir,outFile,meta);
+        } catch (IOException ex) {
+            throw new AndrolibException(ex);
+        }
 	}
 
 	public void buildSources(File appDir, HashMap<String, Boolean> flags)
@@ -535,7 +539,7 @@ public class Androlib {
 	}
 
     public void buildUnknownFiles(File appDir, File outFile, Map<String, Object> meta)
-        throws AndrolibException {
+        throws AndrolibException, IOException {
         File file;
         mPath = Paths.get(appDir.getPath() + File.separatorChar + UNK_DIRNAME);
 
@@ -543,17 +547,17 @@ public class Androlib {
             LOGGER.info("Copying unknown files/dir...");
 
             Map<String, String> files = (Map<String, String>)meta.get("unknownFiles");
-
             try {
                 // set our filesystem options
-                Map<String, String> zip_properties = new HashMap<>();
+                Map<String, String> zip_properties = new HashMap<String, String>();
                 zip_properties.put("create", "false");
                 zip_properties.put("encoding", "UTF-8");
 
                 // create filesystem
                 Path path = Paths.get(outFile.getAbsolutePath());
                 URI apkFileSystem = URI.create("jar:file:" + path.toUri().getPath());
-                try(FileSystem zipFS = FileSystems.newFileSystem(apkFileSystem, zip_properties)) {
+                    
+                    FileSystem zipFS = FileSystems.newFileSystem(apkFileSystem, zip_properties);
 
                     // loop through files inside
                     for (Map.Entry<String,String> entry : files.entrySet()) {
@@ -565,9 +569,8 @@ public class Androlib {
                         }
                     }
                     zipFS.close();
-                }
             } catch (IOException ex) {
-                throw new AndrolibException(ex);
+                throw new IOException(ex);
             }
         }
 

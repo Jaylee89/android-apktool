@@ -82,11 +82,9 @@ public class SmaliDecoder {
                 return FileVisitResult.CONTINUE;
             }
             fileName = fileName.substring(0, fileName.length() - 6);
-            try (
-                    BufferedReader in = Files.newBufferedReader(file, Charset.defaultCharset());
-                    BufferedWriter out = Files.newBufferedWriter(
-                            file.resolveSibling(fileName + ".java"), Charset.defaultCharset())
-            ) {
+                BufferedReader in = Files.newBufferedReader(file, Charset.defaultCharset());
+                BufferedWriter out = Files.newBufferedWriter(
+                                                             file.resolveSibling(fileName + ".java"), Charset.defaultCharset());
                 TypeName type = TypeName.fromPath(mOutDir.relativize(file.resolveSibling(fileName)));
                 out.write("package " + type.package_ + "; class " + type.getName(true, true) + " { void a() { int a;");
                 out.newLine();
@@ -101,7 +99,6 @@ public class SmaliDecoder {
 
                 out.write("}}");
                 out.newLine();
-            }
             Files.delete(file);
             return FileVisitResult.CONTINUE;
         }
